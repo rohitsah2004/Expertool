@@ -1,0 +1,21 @@
+id: expertool-exposed-git-config
+info:
+  name: Exposed Git repository configuration
+  author: expertool
+  severity: medium
+  tags: exposure,misconfig
+  description: Public Git configuration is a candidate repository exposure; validate impact manually.
+http:
+  - method: GET
+    path:
+      - "{{RootURL}}/.git/config"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status: [200]
+      - type: word
+        part: body
+        condition: and
+        words:
+          - "[core]"
+          - repositoryformatversion

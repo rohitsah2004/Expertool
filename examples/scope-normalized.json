@@ -1,0 +1,15 @@
+{
+  "provider": "bugcrowd",
+  "complete": true,
+  "instructions": "Synthetic normalized fixture; not a native platform API response. Review all rules before activation.",
+  "assets": [
+    {
+      "identifier": "*.example.com",
+      "in_scope": true
+    },
+    {
+      "identifier": "payments.example.com",
+      "in_scope": false
+    }
+  ]
+}

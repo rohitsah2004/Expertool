@@ -1,0 +1,26 @@
+__pycache__/
+*.pyc
+.venv/
+my-program.json
+my-techniques.json
+*.db
+*.db-shm
+*.db-wal
+reports/
+
+# Local credentials, capture material and certificate keys
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite3-shm
+*.sqlite3-wal
+ca/
+interception-ca/
+.tools/
+.DS_Store

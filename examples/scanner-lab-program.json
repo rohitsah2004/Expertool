@@ -1,0 +1,59 @@
+{
+  "authorized": true,
+  "include": [
+    "127.0.0.1"
+  ],
+  "exclude": [],
+  "allowed_modes": [
+    "passive",
+    "active",
+    "manual"
+  ],
+  "scan": {
+    "allow_private": true,
+    "ports": [
+      8901
+    ],
+    "max_requests": 20,
+    "max_depth": 2,
+    "rate_per_second": 2,
+    "timeout": 3,
+    "max_seconds": 30,
+    "max_response_bytes": 262144,
+    "path_prefixes": [
+      "/"
+    ],
+    "excluded_paths": [
+      "/never-submit"
+    ]
+  },
+  "automation": {
+    "allowed": true,
+    "tools": [
+      "http",
+      "httpx",
+      "nuclei",
+      "whatweb",
+      "wpscan"
+    ]
+  },
+  "scanners": {
+    "enabled": [
+      "httpx",
+      "nuclei",
+      "whatweb",
+      "wpscan"
+    ],
+    "timeout": 30,
+    "max_output_bytes": 2097152,
+    "nuclei": {
+      "manifest": "examples/nuclei/manifest.json",
+      "allowed_tags": [
+        "tech"
+      ],
+      "allowed_severities": [
+        "info"
+      ]
+    }
+  }
+}

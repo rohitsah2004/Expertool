@@ -1,0 +1,7 @@
+{
+  "name": "Example program — replace with actual approved scope",
+  "authorized": false,
+  "include": ["example.com", "*.example.com"],
+  "exclude": ["payments.example.com", "*.payments.example.com"],
+  "allowed_modes": ["passive", "manual"]
+}

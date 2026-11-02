@@ -1,0 +1,362 @@
+[
+  {
+    "id": "asset-discovery",
+    "name": "Asset discovery",
+    "category": "recon",
+    "mode": "passive",
+    "prerequisites": [
+      "Approved asset seeds"
+    ],
+    "evidence": [
+      "Asset provenance"
+    ],
+    "sources": [
+      "https://github.com/OWASP/wstg"
+    ]
+  },
+  {
+    "id": "technology",
+    "name": "Technology inventory",
+    "category": "recon",
+    "mode": "passive",
+    "prerequisites": [
+      "Existing response captures"
+    ],
+    "evidence": [
+      "Observed technology indicators"
+    ],
+    "sources": [
+      "https://github.com/OWASP/wstg"
+    ]
+  },
+  {
+    "id": "entry-points",
+    "name": "Entry point mapping",
+    "category": "recon",
+    "mode": "passive",
+    "prerequisites": [
+      "Existing URL inventory"
+    ],
+    "evidence": [
+      "Endpoint and parameter inventory"
+    ],
+    "sources": [
+      "https://github.com/OWASP/wstg"
+    ]
+  },
+  {
+    "id": "tls",
+    "name": "TLS configuration",
+    "category": "configuration",
+    "mode": "active",
+    "prerequisites": [
+      "Approved TLS endpoint"
+    ],
+    "evidence": [
+      "Negotiation evidence"
+    ],
+    "sources": [
+      "https://github.com/OWASP/wstg"
+    ]
+  },
+  {
+    "id": "cookies",
+    "name": "Cookie attributes",
+    "category": "session",
+    "mode": "passive",
+    "prerequisites": [
+      "Redacted response headers"
+    ],
+    "evidence": [
+      "Cookie attribute observations"
+    ],
+    "sources": [
+      "https://github.com/OWASP/wstg"
+    ]
+  },
+  {
+    "id": "cors",
+    "name": "Cross-origin policy",
+    "category": "browser",
+    "mode": "active",
+    "prerequisites": [
+      "Approved origin tests"
+    ],
+    "evidence": [
+      "Response policy and browser impact"
+    ],
+    "sources": [
+      "https://github.com/OWASP/wstg"
+    ]
+  },
+  {
+    "id": "business-logic",
+    "name": "Business logic",
+    "category": "workflow",
+    "mode": "manual",
+    "prerequisites": [
+      "Documented business rules; test accounts"
+    ],
+    "evidence": [
+      "Expected versus observed workflow"
+    ],
+    "sources": [
+      "https://github.com/OWASP/wstg"
+    ]
+  },
+  {
+    "id": "graphql",
+    "name": "GraphQL access controls",
+    "category": "api",
+    "mode": "manual",
+    "prerequisites": [
+      "Schema context; controlled test accounts"
+    ],
+    "evidence": [
+      "Role-separated evidence"
+    ],
+    "sources": [
+      "https://github.com/OWASP/wstg"
+    ]
+  },
+  {
+    "id": "access-control",
+    "name": "Object and function authorization",
+    "category": "authorization",
+    "mode": "manual",
+    "prerequisites": [
+      "Two controlled accounts; owned test objects"
+    ],
+    "evidence": [
+      "Cross-account access evidence"
+    ],
+    "sources": [
+      "https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist"
+    ]
+  },
+  {
+    "id": "mfa",
+    "name": "Multi-factor authentication",
+    "category": "authentication",
+    "mode": "manual",
+    "prerequisites": [
+      "Controlled account; permitted authentication testing"
+    ],
+    "evidence": [
+      "Authentication state transitions"
+    ],
+    "sources": [
+      "https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist"
+    ]
+  },
+  {
+    "id": "oauth",
+    "name": "OAuth flow review",
+    "category": "authentication",
+    "mode": "manual",
+    "prerequisites": [
+      "Controlled client and test accounts"
+    ],
+    "evidence": [
+      "Flow validation evidence"
+    ],
+    "sources": [
+      "https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist"
+    ]
+  },
+  {
+    "id": "password-reset",
+    "name": "Password reset review",
+    "category": "authentication",
+    "mode": "manual",
+    "prerequisites": [
+      "Controlled account and mailbox"
+    ],
+    "evidence": [
+      "Recovery state evidence"
+    ],
+    "sources": [
+      "https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist"
+    ]
+  },
+  {
+    "id": "uploads",
+    "name": "Upload handling",
+    "category": "files",
+    "mode": "manual",
+    "prerequisites": [
+      "Approved harmless test files"
+    ],
+    "evidence": [
+      "Storage and serving behavior"
+    ],
+    "sources": [
+      "https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist"
+    ]
+  },
+  {
+    "id": "ssrf",
+    "name": "Server-side request behavior",
+    "category": "server",
+    "mode": "manual",
+    "prerequisites": [
+      "Permitted callback endpoint"
+    ],
+    "evidence": [
+      "Correlated server-originated callback"
+    ],
+    "sources": [
+      "https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist"
+    ]
+  },
+  {
+    "id": "redirects",
+    "name": "Redirect handling",
+    "category": "browser",
+    "mode": "active",
+    "prerequisites": [
+      "Approved redirect parameters"
+    ],
+    "evidence": [
+      "Destination and navigation evidence"
+    ],
+    "sources": [
+      "https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist"
+    ]
+  },
+  {
+    "id": "xss",
+    "name": "Script injection",
+    "category": "injection",
+    "mode": "manual",
+    "prerequisites": [
+      "Permitted browser test context"
+    ],
+    "evidence": [
+      "Browser execution evidence"
+    ],
+    "sources": [
+      "https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist"
+    ]
+  },
+  {
+    "id": "sql",
+    "name": "SQL injection",
+    "category": "injection",
+    "mode": "manual",
+    "prerequisites": [
+      "Approved test endpoint"
+    ],
+    "evidence": [
+      "Repeatable differential evidence"
+    ],
+    "sources": [
+      "https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist"
+    ]
+  },
+  {
+    "id": "cache",
+    "name": "Cache isolation",
+    "category": "configuration",
+    "mode": "manual",
+    "prerequisites": [
+      "Isolated test resource"
+    ],
+    "evidence": [
+      "Cache boundary evidence"
+    ],
+    "sources": [
+      "https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist"
+    ]
+  },
+  {
+    "id": "template",
+    "name": "Template processing",
+    "category": "injection",
+    "mode": "manual",
+    "prerequisites": [
+      "Controlled input context"
+    ],
+    "evidence": [
+      "Engine behavior evidence"
+    ],
+    "sources": [
+      "https://github.com/swisskyrepo/PayloadsAllTheThings"
+    ]
+  },
+  {
+    "id": "traversal",
+    "name": "Path boundary handling",
+    "category": "files",
+    "mode": "manual",
+    "prerequisites": [
+      "Known harmless fixture"
+    ],
+    "evidence": [
+      "Boundary violation evidence"
+    ],
+    "sources": [
+      "https://github.com/swisskyrepo/PayloadsAllTheThings"
+    ]
+  },
+  {
+    "id": "xxe",
+    "name": "XML parser configuration",
+    "category": "injection",
+    "mode": "manual",
+    "prerequisites": [
+      "Approved XML input"
+    ],
+    "evidence": [
+      "Parser behavior evidence"
+    ],
+    "sources": [
+      "https://github.com/swisskyrepo/PayloadsAllTheThings"
+    ]
+  },
+  {
+    "id": "deserialization",
+    "name": "Deserialization boundaries",
+    "category": "server",
+    "mode": "manual",
+    "prerequisites": [
+      "Format and application context"
+    ],
+    "evidence": [
+      "Unsafe trust boundary evidence"
+    ],
+    "sources": [
+      "https://github.com/swisskyrepo/PayloadsAllTheThings"
+    ]
+  },
+  {
+    "id": "prototype",
+    "name": "Prototype mutation",
+    "category": "injection",
+    "mode": "manual",
+    "prerequisites": [
+      "Isolated test environment"
+    ],
+    "evidence": [
+      "Unexpected property propagation"
+    ],
+    "sources": [
+      "https://github.com/swisskyrepo/PayloadsAllTheThings"
+    ]
+  },
+  {
+    "id": "websockets",
+    "name": "WebSocket authorization",
+    "category": "api",
+    "mode": "manual",
+    "prerequisites": [
+      "Controlled accounts and messages"
+    ],
+    "evidence": [
+      "Connection and message authorization evidence"
+    ],
+    "sources": [
+      "https://github.com/OWASP/wstg"
+    ]
+  }
+]

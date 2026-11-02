@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Expertool · Assessment workspace</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/">EX<span>◈</span>PERTOOL</a><div class="tagline">THE HUNTER’S WORKSPACE</div>
+  <label for="program">PROGRAM</label><select id="program"><option value="">Loading programs…</option></select>
+  <nav aria-label="Workspace views"><button data-tab="findings" class="nav active">◉ <span>Findings</span></button><button data-tab="assets" class="nav">◇ <span>Asset inventory</span></button><button data-tab="runs" class="nav">↻ <span>Runs & schedules</span></button><button data-tab="scope" class="nav">⊞ <span>Program scope</span></button></nav>
+  <div class="sidebar-bottom"><span class="dot"></span> LOCAL WORKSPACE<p>Evidence stays on this computer.<br>Review every scanner candidate.</p></div>
+</aside>
+<main>
+<header><div class="breadcrumb">WORKSPACE <span>/</span> <span id="program-name">Select a program</span></div><div class="actions"><button id="refresh" class="button">↻ Refresh</button><a id="export" class="button primary" hidden>↓ Export report</a></div></header>
+<div class="content">
+<div class="intro"><div><div class="eyebrow">ASSESSMENT OVERVIEW</div><h1 id="view-title">Findings</h1><p id="subtitle">A clear view of what needs your attention.</p></div><span class="mode">OFFLINE EVIDENCE</span></div>
+<div id="notice" role="status" aria-live="polite"></div>
+<section class="metrics" aria-label="Assessment totals"><article><span>Discovered assets</span><strong id="asset-count">—</strong><small>DNS and HTTP records</small></article><article><span>Needs review</span><strong id="candidate-count" class="amber">—</strong><small>Unverified candidates</small></article><article><span>Confirmed</span><strong id="confirmed-count" class="green">—</strong><small>Validated by the hunter</small></article><article><span>Dismissed</span><strong id="dismissed-count">—</strong><small>Retained for reference</small></article></section>
+<section class="panel" id="workspace-panel">
+  <div class="toolbar"><div class="tabs" aria-label="Finding status"><button data-state="all" class="active">All findings</button><button data-state="candidate">Candidates</button><button data-state="confirmed">Confirmed</button><button data-state="dismissed">Dismissed</button></div><div class="filters"><label class="sr-only" for="severity">Severity</label><select id="severity"><option value="all">All severities</option><option>critical</option><option>high</option><option>medium</option><option>low</option><option>info</option></select><label class="sr-only" for="search">Search records</label><input id="search" type="search" placeholder="Search title, asset, evidence…"></div></div>
+  <div id="table-region"></div>
+  <div class="table-footer"><span id="result-count"></span><span>Source evidence → Hunter review → Report</span></div>
+</section>
+<section id="scope-panel" class="panel scope-panel" hidden><h2>Approved asset rules</h2><p>Exclusions take precedence. Wildcards include subdomains only.</p><div class="scope-grid"><div><h3>INCLUDED</h3><ul id="included"></ul></div><div><h3>EXCLUDED</h3><ul id="excluded"></ul></div><div><h3>ALLOWED MODES</h3><ul id="allowed"></ul></div></div><h3>EXECUTION POLICY & SCOPE REVIEW</h3><pre id="scan-policy"></pre></section>
+<div id="empty-workspace" class="panel empty" hidden><h2>Your workspace starts here</h2><p>Register a program and import saved tool output through the CLI. Refresh when you’re ready.</p><pre>python3 -m expertool --db demo.db program-add --name demo --file examples/demo-program.json
+python3 -m expertool --db demo.db import --program demo --format nuclei --file examples/nuclei.jsonl</pre><p>Start the dashboard with the same <code>--db</code> path.</p></div>
+<footer>EXPERTOOL <span>•</span> Candidate findings are leads, not confirmed vulnerabilities.</footer>
+</div>
+</main>
+<dialog id="detail"><div class="detail-heading"><span class="eyebrow">FINDING REVIEW</span><button id="close-detail" aria-label="Close finding details">✕</button></div><h2 id="detail-title"></h2><p id="detail-url" class="mono"></p><div id="detail-badges"></div><h3>EVIDENCE</h3><pre id="detail-evidence"></pre><h3>VALIDATION HISTORY</h3><pre id="detail-validation"></pre><p class="muted">Confirm only after validating the evidence and impact. Changes are saved to the workspace database.</p><div class="review-actions"><button data-review="candidate" class="button">Mark candidate</button><button data-review="dismissed" class="button">Dismiss</button><button data-review="confirmed" class="button primary">Confirm finding</button></div><p id="review-status" role="status" aria-live="polite"></p></dialog>
+</body></html>

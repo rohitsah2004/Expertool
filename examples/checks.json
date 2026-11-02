@@ -1,0 +1,9 @@
+[
+  {
+    "id": "fixture-marker",
+    "name": "Local fixture marker detected",
+    "severity": "info",
+    "path": "/marker",
+    "match": {"status": 200, "body_contains": "EXPERTOOL_FIXTURE_MARKER"}
+  }
+]

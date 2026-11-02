@@ -1,0 +1,7 @@
+{
+  "name": "Offline demo fixtures",
+  "authorized": true,
+  "include": ["*.example.com"],
+  "exclude": ["payments.example.com"],
+  "allowed_modes": ["passive", "manual"]
+}

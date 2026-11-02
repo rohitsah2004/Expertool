@@ -1,0 +1,2 @@
+# Optional: only needed by template-import; scanner runtime remains stdlib-only.
+PyYAML>=6.0.2,<7

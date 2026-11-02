@@ -1,0 +1,21 @@
+{
+  "authorized": true,
+  "include": ["127.0.0.1"],
+  "exclude": [],
+  "allowed_modes": ["manual"],
+  "automation": {"allowed": false},
+  "interception": {"enabled": true, "state_changing": {"enabled": false}},
+  "scan": {
+    "allow_private": true,
+    "ports": [8901],
+    "max_requests": 50,
+    "rate_per_second": 2,
+    "timeout": 5,
+    "max_seconds": 300,
+    "max_response_bytes": 262144,
+    "path_prefixes": ["/"],
+    "excluded_paths": ["/never-submit"],
+    "user_agent": "Expertool/0.3 user-initiated-manual-assessment",
+    "request_headers": {"X-Expertool-Mode": "manual"}
+  }
+}

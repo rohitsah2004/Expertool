@@ -1,0 +1,17 @@
+{
+  "id": "expertool-fixture-marker",
+  "info": {
+    "name": "Expertool local fixture marker",
+    "author": "expertool",
+    "severity": "info",
+    "tags": ["tech"]
+  },
+  "http": [
+    {
+      "method": "GET",
+      "path": ["{{RootURL}}/marker"],
+      "redirects": false,
+      "matchers": [{"type": "word", "words": ["EXPERTOOL_FIXTURE_MARKER"], "part": "body"}]
+    }
+  ]
+}

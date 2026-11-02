@@ -1,0 +1,5 @@
+{
+  "reviewed_on": "2026-11-01",
+  "basis": "Real-binary loopback tests and documented smoke results; version matching is not binary trust or universal compatibility.",
+  "tools": {"httpx": ["1.12.0"], "nuclei": ["3.11.1"], "whatweb": ["0.6.4"], "wpscan": ["4.2.0"]}
+}

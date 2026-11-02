@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "type": "structured-scope",
+      "id": "fixture-1",
+      "attributes": {
+        "asset_type": "URL",
+        "asset_identifier": "https://api.example.com/public/*",
+        "eligible_for_submission": true,
+        "eligible_for_bounty": true,
+        "instruction": "Synthetic fixture: review real program rules before enabling automation."
+      }
+    },
+    {
+      "type": "structured-scope",
+      "id": "fixture-2",
+      "attributes": {
+        "asset_type": "URL",
+        "asset_identifier": "https://api.example.com/public/private",
+        "eligible_for_submission": false,
+        "eligible_for_bounty": false
+      }
+    }
+  ],
+  "links": {
+    "next": null
+  }
+}

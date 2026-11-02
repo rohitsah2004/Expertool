@@ -1,0 +1,2 @@
+{"url":"https://api.example.com/","status_code":200,"title":"Demo API","tech":["FixtureServer"],"failed":false}
+{"url":"https://www.example.com/","status_code":200,"title":"Demo website","failed":false}

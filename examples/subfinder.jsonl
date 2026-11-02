@@ -1,0 +1,2 @@
+{"host":"api.example.com","input":"example.com","source":"fixture"}
+{"host":"www.example.com","input":"example.com","sources":["fixture"]}
