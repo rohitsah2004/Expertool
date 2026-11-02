@@ -1,0 +1,762 @@
+{
+  "note": "All credentials are deliberately synthetic test values, never production secrets.",
+  "cases": [
+    {
+      "name": "object-X-API-Key",
+      "kind": "object",
+      "input": {
+        "X-API-Key": "synthetic-secret-value"
+      },
+      "expected": {
+        "X-API-Key": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-X-CSRF-Token",
+      "kind": "object",
+      "input": {
+        "X-CSRF-Token": "synthetic-secret-value"
+      },
+      "expected": {
+        "X-CSRF-Token": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-X-Auth-Token",
+      "kind": "object",
+      "input": {
+        "X-Auth-Token": "synthetic-secret-value"
+      },
+      "expected": {
+        "X-Auth-Token": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-client_secret",
+      "kind": "object",
+      "input": {
+        "client_secret": "synthetic-secret-value"
+      },
+      "expected": {
+        "client_secret": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-accessToken",
+      "kind": "object",
+      "input": {
+        "accessToken": "synthetic-secret-value"
+      },
+      "expected": {
+        "accessToken": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-id_token",
+      "kind": "object",
+      "input": {
+        "id_token": "synthetic-secret-value"
+      },
+      "expected": {
+        "id_token": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-Authorization",
+      "kind": "object",
+      "input": {
+        "Authorization": "synthetic-secret-value"
+      },
+      "expected": {
+        "Authorization": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-proxy.authorization",
+      "kind": "object",
+      "input": {
+        "proxy.authorization": "synthetic-secret-value"
+      },
+      "expected": {
+        "proxy.authorization": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-Cookie",
+      "kind": "object",
+      "input": {
+        "Cookie": "synthetic-secret-value"
+      },
+      "expected": {
+        "Cookie": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-Set-Cookie",
+      "kind": "object",
+      "input": {
+        "Set-Cookie": "synthetic-secret-value"
+      },
+      "expected": {
+        "Set-Cookie": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-Password",
+      "kind": "object",
+      "input": {
+        "Password": "synthetic-secret-value"
+      },
+      "expected": {
+        "Password": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-passwd",
+      "kind": "object",
+      "input": {
+        "passwd": "synthetic-secret-value"
+      },
+      "expected": {
+        "passwd": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-api key",
+      "kind": "object",
+      "input": {
+        "api key": "synthetic-secret-value"
+      },
+      "expected": {
+        "api key": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-privateKey",
+      "kind": "object",
+      "input": {
+        "privateKey": "synthetic-secret-value"
+      },
+      "expected": {
+        "privateKey": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-session.id",
+      "kind": "object",
+      "input": {
+        "session.id": "synthetic-secret-value"
+      },
+      "expected": {
+        "session.id": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-session",
+      "kind": "object",
+      "input": {
+        "session": "synthetic-secret-value"
+      },
+      "expected": {
+        "session": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-credential",
+      "kind": "object",
+      "input": {
+        "credential": "synthetic-secret-value"
+      },
+      "expected": {
+        "credential": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-jwt",
+      "kind": "object",
+      "input": {
+        "jwt": "synthetic-secret-value"
+      },
+      "expected": {
+        "jwt": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-bearer",
+      "kind": "object",
+      "input": {
+        "bearer": "synthetic-secret-value"
+      },
+      "expected": {
+        "bearer": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-X.XSRF.Token",
+      "kind": "object",
+      "input": {
+        "X.XSRF.Token": "synthetic-secret-value"
+      },
+      "expected": {
+        "X.XSRF.Token": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-xauthkey",
+      "kind": "object",
+      "input": {
+        "xauthkey": "synthetic-secret-value"
+      },
+      "expected": {
+        "xauthkey": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-access.token",
+      "kind": "object",
+      "input": {
+        "access.token": "synthetic-secret-value"
+      },
+      "expected": {
+        "access.token": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-access token",
+      "kind": "object",
+      "input": {
+        "access token": "synthetic-secret-value"
+      },
+      "expected": {
+        "access token": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-access-token",
+      "kind": "object",
+      "input": {
+        "access-token": "synthetic-secret-value"
+      },
+      "expected": {
+        "access-token": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-accesstoken",
+      "kind": "object",
+      "input": {
+        "accesstoken": "synthetic-secret-value"
+      },
+      "expected": {
+        "accesstoken": "[REDACTED]"
+      }
+    },
+    {
+      "name": "object-AWSAccessKeySignature",
+      "kind": "object",
+      "input": {
+        "AWSAccessKeySignature": "synthetic-secret-value"
+      },
+      "expected": {
+        "AWSAccessKeySignature": "[REDACTED]"
+      }
+    },
+    {
+      "name": "query-code",
+      "kind": "text",
+      "input": "https://example.test/path?code=synthetic&visible=1",
+      "expected": "https://example.test/path?code=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-sig",
+      "kind": "text",
+      "input": "https://example.test/path?sig=synthetic&visible=1",
+      "expected": "https://example.test/path?sig=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-signature",
+      "kind": "text",
+      "input": "https://example.test/path?signature=synthetic&visible=1",
+      "expected": "https://example.test/path?signature=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-X-Amz-Signature",
+      "kind": "text",
+      "input": "https://example.test/path?X-Amz-Signature=synthetic&visible=1",
+      "expected": "https://example.test/path?X-Amz-Signature=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-X-Amz-Credential",
+      "kind": "text",
+      "input": "https://example.test/path?X-Amz-Credential=synthetic&visible=1",
+      "expected": "https://example.test/path?X-Amz-Credential=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-X-Amz-Security-Token",
+      "kind": "text",
+      "input": "https://example.test/path?X-Amz-Security-Token=synthetic&visible=1",
+      "expected": "https://example.test/path?X-Amz-Security-Token=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-auth",
+      "kind": "text",
+      "input": "https://example.test/path?auth=synthetic&visible=1",
+      "expected": "https://example.test/path?auth=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-authorization",
+      "kind": "text",
+      "input": "https://example.test/path?authorization=synthetic&visible=1",
+      "expected": "https://example.test/path?authorization=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-id_token",
+      "kind": "text",
+      "input": "https://example.test/path?id_token=synthetic&visible=1",
+      "expected": "https://example.test/path?id_token=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-jwt",
+      "kind": "text",
+      "input": "https://example.test/path?jwt=synthetic&visible=1",
+      "expected": "https://example.test/path?jwt=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-client_secret",
+      "kind": "text",
+      "input": "https://example.test/path?client_secret=synthetic&visible=1",
+      "expected": "https://example.test/path?client_secret=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-apikey",
+      "kind": "text",
+      "input": "https://example.test/path?apikey=synthetic&visible=1",
+      "expected": "https://example.test/path?apikey=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-api_key",
+      "kind": "text",
+      "input": "https://example.test/path?api_key=synthetic&visible=1",
+      "expected": "https://example.test/path?api_key=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-access_key",
+      "kind": "text",
+      "input": "https://example.test/path?access_key=synthetic&visible=1",
+      "expected": "https://example.test/path?access_key=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-secret",
+      "kind": "text",
+      "input": "https://example.test/path?secret=synthetic&visible=1",
+      "expected": "https://example.test/path?secret=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-password",
+      "kind": "text",
+      "input": "https://example.test/path?password=synthetic&visible=1",
+      "expected": "https://example.test/path?password=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-passwd",
+      "kind": "text",
+      "input": "https://example.test/path?passwd=synthetic&visible=1",
+      "expected": "https://example.test/path?passwd=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-otp",
+      "kind": "text",
+      "input": "https://example.test/path?otp=synthetic&visible=1",
+      "expected": "https://example.test/path?otp=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-pin",
+      "kind": "text",
+      "input": "https://example.test/path?pin=synthetic&visible=1",
+      "expected": "https://example.test/path?pin=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-session",
+      "kind": "text",
+      "input": "https://example.test/path?session=synthetic&visible=1",
+      "expected": "https://example.test/path?session=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-sid",
+      "kind": "text",
+      "input": "https://example.test/path?sid=synthetic&visible=1",
+      "expected": "https://example.test/path?sid=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "query-X-API-Key",
+      "kind": "text",
+      "input": "https://example.test/path?X-API-Key=synthetic&visible=1",
+      "expected": "https://example.test/path?X-API-Key=%5BREDACTED%5D&visible=1"
+    },
+    {
+      "name": "form-client_secret",
+      "kind": "form",
+      "input": "client_secret=synthetic+value&visible=yes",
+      "expected": "client_secret=%5BREDACTED%5D&visible=yes"
+    },
+    {
+      "name": "form-code",
+      "kind": "form",
+      "input": "code=synthetic+value&visible=yes",
+      "expected": "code=%5BREDACTED%5D&visible=yes"
+    },
+    {
+      "name": "form-sig",
+      "kind": "form",
+      "input": "sig=synthetic+value&visible=yes",
+      "expected": "sig=%5BREDACTED%5D&visible=yes"
+    },
+    {
+      "name": "form-otp",
+      "kind": "form",
+      "input": "otp=synthetic+value&visible=yes",
+      "expected": "otp=%5BREDACTED%5D&visible=yes"
+    },
+    {
+      "name": "form-pin",
+      "kind": "form",
+      "input": "pin=synthetic+value&visible=yes",
+      "expected": "pin=%5BREDACTED%5D&visible=yes"
+    },
+    {
+      "name": "form-password",
+      "kind": "form",
+      "input": "password=synthetic+value&visible=yes",
+      "expected": "password=%5BREDACTED%5D&visible=yes"
+    },
+    {
+      "name": "form-sid",
+      "kind": "form",
+      "input": "sid=synthetic+value&visible=yes",
+      "expected": "sid=%5BREDACTED%5D&visible=yes"
+    },
+    {
+      "name": "form-X-CSRF-Token",
+      "kind": "form",
+      "input": "X-CSRF-Token=synthetic+value&visible=yes",
+      "expected": "X-CSRF-Token=%5BREDACTED%5D&visible=yes"
+    },
+    {
+      "name": "header-X-API-Key",
+      "kind": "text",
+      "input": "X-API-Key: synthetic value; more=secret",
+      "expected": "X-API-Key: [REDACTED]"
+    },
+    {
+      "name": "header-X-CSRF-Token",
+      "kind": "text",
+      "input": "X-CSRF-Token: synthetic value; more=secret",
+      "expected": "X-CSRF-Token: [REDACTED]"
+    },
+    {
+      "name": "header-X-Auth-Token",
+      "kind": "text",
+      "input": "X-Auth-Token: synthetic value; more=secret",
+      "expected": "X-Auth-Token: [REDACTED]"
+    },
+    {
+      "name": "header-Cookie",
+      "kind": "text",
+      "input": "Cookie: synthetic value; more=secret",
+      "expected": "Cookie: [REDACTED]"
+    },
+    {
+      "name": "header-Set-Cookie",
+      "kind": "text",
+      "input": "Set-Cookie: synthetic value; more=secret",
+      "expected": "Set-Cookie: [REDACTED]"
+    },
+    {
+      "name": "header-Authorization",
+      "kind": "text",
+      "input": "Authorization: synthetic value; more=secret",
+      "expected": "Authorization: [REDACTED]"
+    },
+    {
+      "name": "oauth-state-paired",
+      "kind": "text",
+      "input": "https://example.test/cb?code=c&state=s",
+      "expected": "https://example.test/cb?code=%5BREDACTED%5D&state=%5BREDACTED%5D"
+    },
+    {
+      "name": "oauth-state-alone",
+      "kind": "text",
+      "input": "https://example.test/?state=selection&code_hint=example",
+      "expected": "https://example.test/?state=selection&code_hint=example"
+    },
+    {
+      "name": "oauth-cross-fragment",
+      "kind": "text",
+      "input": "https://example.test/?code=c#state=s",
+      "expected": "https://example.test/?code=%5BREDACTED%5D#state=%5BREDACTED%5D"
+    },
+    {
+      "name": "raw-query",
+      "kind": "text",
+      "input": "?code=c&state=s",
+      "expected": "?code=%5BREDACTED%5D&state=%5BREDACTED%5D"
+    },
+    {
+      "name": "basic-auth-url",
+      "kind": "text",
+      "input": "https://alice:synthetic-password@example.test/a?x=1",
+      "expected": "https://%5BREDACTED%5D@example.test/a?x=1"
+    },
+    {
+      "name": "jwt",
+      "kind": "text",
+      "input": "eyJhbGciOiJub25lIn0.eyJzdWIiOiJmaXh0dXJlIn0.c3ludGhldGlj",
+      "expected": "[REDACTED]"
+    },
+    {
+      "name": "aws",
+      "kind": "text",
+      "input": "AKIAAAAAAAAAAAAAAAAA",
+      "expected": "[REDACTED]"
+    },
+    {
+      "name": "github",
+      "kind": "text",
+      "input": "ghp_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "expected": "[REDACTED]"
+    },
+    {
+      "name": "bearer",
+      "kind": "text",
+      "input": "Bearer synthetic-credential-123",
+      "expected": "Bearer [REDACTED]"
+    },
+    {
+      "name": "mixed-bearer",
+      "kind": "text",
+      "input": "bEaReR synthetic-credential-123",
+      "expected": "Bearer [REDACTED]"
+    },
+    {
+      "name": "nested-json",
+      "kind": "object",
+      "input": {
+        "outer": [
+          {
+            "clientSecret": "synthetic"
+          },
+          {
+            "is_admin": true
+          }
+        ]
+      },
+      "expected": {
+        "outer": [
+          {
+            "clientSecret": "[REDACTED]"
+          },
+          {
+            "is_admin": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "false-positive-object",
+      "kind": "object",
+      "input": {
+        "is_admin": true,
+        "locale": "en-US",
+        "token_type": "Bearer",
+        "tokenizer": "bpe",
+        "csrf_required": false,
+        "description": "The word token is descriptive."
+      },
+      "expected": {
+        "is_admin": true,
+        "locale": "en-US",
+        "token_type": "Bearer",
+        "tokenizer": "bpe",
+        "csrf_required": false,
+        "description": "The word token is descriptive."
+      },
+      "register": {
+        "Cookie": "debug=true; lang=en-US"
+      }
+    },
+    {
+      "name": "csrf-string-is-sensitive",
+      "kind": "object",
+      "input": {
+        "csrf_required": "not-a-boolean"
+      },
+      "expected": {
+        "csrf_required": "[REDACTED]"
+      }
+    },
+    {
+      "name": "ordered-headers",
+      "kind": "object",
+      "input": {
+        "headers": [
+          [
+            "X-API-Key",
+            "synthetic"
+          ],
+          [
+            "Accept",
+            "application/json"
+          ],
+          [
+            "x-api-key",
+            "second"
+          ]
+        ]
+      },
+      "expected": {
+        "headers": [
+          [
+            "X-API-Key",
+            "[REDACTED]"
+          ],
+          [
+            "Accept",
+            "application/json"
+          ],
+          [
+            "x-api-key",
+            "[REDACTED]"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "ordered-form-body",
+      "kind": "object",
+      "input": {
+        "headers": [
+          [
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          ]
+        ],
+        "body": "password=synthetic secret"
+      },
+      "expected": {
+        "headers": [
+          [
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          ]
+        ],
+        "body": "password=%5BREDACTED%5D"
+      }
+    },
+    {
+      "name": "json-body-text",
+      "kind": "object",
+      "input": {
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"client_secret\":\"synthetic\",\"is_admin\":true}"
+      },
+      "expected": {
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"client_secret\": \"[REDACTED]\", \"is_admin\": true}"
+      }
+    },
+    {
+      "name": "json-output-framing",
+      "kind": "output",
+      "input": "{\"X-API-Key\":\"synthetic\",\"is_admin\":true}\n{\"id_token\":\"synthetic\",\"locale\":\"en-US\"}",
+      "expected": "{\"X-API-Key\": \"[REDACTED]\", \"is_admin\": true}\n{\"id_token\": \"[REDACTED]\", \"locale\": \"en-US\"}"
+    },
+    {
+      "name": "registered-boundary",
+      "kind": "text",
+      "input": "value=(synthetic-credential-Q7z) embedded=prefixsynthetic-credential-Q7zsuffix",
+      "expected": "value=([REDACTED]) embedded=prefixsynthetic-credential-Q7zsuffix",
+      "register": {
+        "Authorization": "Bearer synthetic-credential-Q7z"
+      }
+    },
+    {
+      "name": "registered-json-number",
+      "kind": "output",
+      "input": "{\"number\":123456789012,\"value\":\"123456789012\"}",
+      "expected": "{\"number\": 123456789012, \"value\": \"[REDACTED]\"}",
+      "register": {
+        "Authorization": "123456789012"
+      }
+    },
+    {
+      "name": "json-exact-otp",
+      "kind": "object",
+      "input": {
+        "otp": "synthetic"
+      },
+      "expected": {
+        "otp": "[REDACTED]"
+      }
+    },
+    {
+      "name": "json-exact-pin",
+      "kind": "object",
+      "input": {
+        "pin": "synthetic"
+      },
+      "expected": {
+        "pin": "[REDACTED]"
+      }
+    },
+    {
+      "name": "json-exact-sid",
+      "kind": "object",
+      "input": {
+        "sid": "synthetic"
+      },
+      "expected": {
+        "sid": "[REDACTED]"
+      }
+    },
+    {
+      "name": "json-exact-sig",
+      "kind": "object",
+      "input": {
+        "sig": "synthetic"
+      },
+      "expected": {
+        "sig": "[REDACTED]"
+      }
+    },
+    {
+      "name": "json-exact-auth",
+      "kind": "object",
+      "input": {
+        "auth": "synthetic"
+      },
+      "expected": {
+        "auth": "[REDACTED]"
+      }
+    },
+    {
+      "name": "json-exact-AWSAccessKeyId",
+      "kind": "object",
+      "input": {
+        "AWSAccessKeyId": "synthetic"
+      },
+      "expected": {
+        "AWSAccessKeyId": "[REDACTED]"
+      }
+    },
+    {
+      "name": "spaced-label",
+      "kind": "text",
+      "input": "API Key: synthetic value",
+      "expected": "API Key: [REDACTED]"
+    }
+  ]
+}

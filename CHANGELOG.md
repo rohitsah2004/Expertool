@@ -1,5 +1,25 @@
 # Changelog
 
+## R3–R4 — passthrough and constrained program CAs
+
+- Added explicitly approved blind CONNECT for out-of-scope third parties, with all-answer public-address checks, pinned IPv4, caps, revocation and distinct audit events. No CA use or injection in blind tunnels.
+- Added per-program critical DNS/IP name constraints, scope binding, explicit rotation/public-only retirement and optional environment-passphrase key encryption. Updated CA CLI migration and trust-removal guidance.
+- Refused unreviewed wildcard passthrough roots and unrepresentable certificate-scope combinations; runtime request scope remains mandatory.
+- R5 reuse evaluation retains connection-close and identity encoding until fresh-permit/framing guarantees are demonstrated. Blind relay failures close without injecting HTTP after CONNECT acknowledgement.
+- Final macOS verification: 180 passed, 0 skipped, 0 failed, including all four real-scanner local tests. No W2/W3 implementation, installs or trust changes.
+
+## R2 — shared guarded send
+
+- Extracted manual request sending into RequestSpec/ResponseSpec and send_guarded; interception delegates network safety and forwarding to that API.
+- Added format-3 audit source metadata with prior-format verification retained, direct send regressions, and fixed-reason error reporting. No history or replay UI added.
+
+## R1 — redaction correctness
+
+- Replaced exact-key regex matching with normalized secret-key matching and a small typed false-positive allowlist. Expanded URL/form/OAuth and header redaction.
+- Preserved JSON/JSONL framing and typed literals; added ordered-header and encoded-form body handling.
+- Restricted cookie/credential registration and bounded recall with entry/byte limits and access LRU. Key/pattern layers remain the primary defense.
+- Added 88 synthetic fixtures, generated JSON property checks, cache/boundary tests and a 64-KiB offline microbenchmark. On macOS: 162 passed, 0 skipped, 0 failed; all measured 64-KiB benchmark means were under 1 ms. R2–R5 and W2/W3 are not started.
+
 ## Workbench W1 — manual interception
 
 - Added a separate authenticated loopback manual listener with scoped TLS termination, per-request guard checks, pinned IPv4 and verified upstream TLS.

@@ -1,5 +1,7 @@
 # W1 — opt-in manual interception
 
+Current CA/passthrough/send behavior is updated by [R2–R4 repairs](repairs-r2-r5.md); use the per-program CA commands below.
+
 W1 adds a separate authenticated loopback proxy for a user-controlled browser. It can inspect HTTP/1.1 requests inside TLS for explicitly permitted hosts, enforce HTTPS path scope on each decrypted request, and forward over verified upstream TLS. It does not add history bodies, HAR, Repeater, account switching, raw capture or automatic testing. W2–W6 have not started. Bulk template work and change detection remain separate work.
 
 ## Start with the local lab
@@ -10,17 +12,17 @@ These commands use the existing Python standard-library application and an alrea
 python3 examples/lab.py
 ```
 
-In another terminal, register the manual-only program and explicitly create the per-install CA once:
+In another terminal, register the manual-only program and explicitly create the per-program CA once:
 
 ```sh
 .venv/bin/python -m expertool --db workbench.db program-add --name manual-lab --file examples/interception-lab-program.json
-.venv/bin/python -m expertool ca-create
-.venv/bin/python -m expertool ca-export-public --out expertool-interception-public.pem
+.venv/bin/python -m expertool --db workbench.db ca-create --program manual-lab
+.venv/bin/python -m expertool ca-export-public --program manual-lab --out expertool-interception-public.pem
 export EXPERTOOL_INTERCEPT_TOKEN="$(python3 -c 'import secrets; print(secrets.token_urlsafe(32))')"
 .venv/bin/python -m expertool --db workbench.db intercept-start --program manual-lab
 ```
 
-`ca-create` refuses to replace an existing directory. The default CA directory is `~/.local/share/expertool/interception-ca`. Every CA command and `intercept-start` supports `--ca-dir` for a separate installation/test CA. Only the public certificate is exported. Do not copy or share `ca-key.pem`.
+`ca-create` refuses to replace an existing directory. The default CA root is `~/.local/share/expertool/interception-ca`; each program has a private hashed subdirectory. Every CA command and `intercept-start` supports `--ca-dir` for a separate installation/test CA. Only the public certificate is exported. Do not copy or share `ca-key.pem`.
 
 `intercept-start` stays in the foreground and prints a random loopback proxy port and run ID, **not its token**. Set the browser's HTTP and HTTPS proxy to `127.0.0.1` and that printed port. Proxy username is `expertool`; password is the value you put in `EXPERTOOL_INTERCEPT_TOKEN`. The browser may ask for proxy authentication. Use a fresh token for every run. Clear saved browser proxy credentials when finished. Do not paste the token into a program policy, issue, report or command-line argument.
 
@@ -36,12 +38,12 @@ When finished:
 
 1. Stop interception with Ctrl+C or the authenticated stop command below.
 2. Disable the browser proxy and remove saved proxy authentication from the test profile.
-3. In Firefox's Authorities list, select “Expertool Local Interception CA” and delete/distrust it. In Keychain Access, remove that certificate from the keychain in which you imported it. Remove trust from every profile/keychain where you added it.
+3. In Firefox's Authorities list, select “Expertool Program CA (program hash)” and delete/distrust it. In Keychain Access, remove that certificate from the keychain in which you imported it. Remove trust from every profile/keychain where you added it.
 4. If retiring the installation CA, run `ca-destroy`. It refuses while an Expertool listener holds the CA lease. Delete any exported public copies you no longer need.
 
 ```sh
 .venv/bin/python -m expertool intercept-stop --port PRINTED_PORT
-.venv/bin/python -m expertool ca-destroy
+.venv/bin/python -m expertool ca-destroy --program manual-lab
 ```
 
 The stop command uses the same token environment variable and reaches only the local listener; it never sends a target request. It does not need the database argument. Deleting CA files does **not** remove browser or OS trust. File deletion is not guaranteed secure erasure on SSDs or backups. Restarting requires explicit new CA creation if the old CA was destroyed.
@@ -79,7 +81,7 @@ For every forwarded request, Expertool checks the decrypted method and Host auth
 
 Only HTTP/1.1 is advertised to TLS clients. A client can fall back to HTTP/1.1 when no ALPN protocol is selected; a client that sends an HTTP/2 preface is explicitly refused. HTTP/2 translation is not implemented. HTTP responses close the connection after one request. Chunked request bodies, duplicate headers, Expect/100-continue, nested CONNECT, protocol upgrades and WebSockets are refused. `Alt-Svc` is stripped to avoid advertising an alternate transport through this listener. The browser's own QUIC, direct connections, proxy bypasses or other applications are outside this listener's control; it is not a browser/OS firewall.
 
-Out-of-scope passthrough, WebSocket capture and raw capture are unsupported and refused even if their configuration flags are set true. This conservative W1 decision avoids an unaudited opaque route or plaintext capture while their required controls are absent. No HTTP/2 or WebSocket coverage is claimed.
+WebSocket capture and raw capture remain unsupported. Out-of-scope passthrough is refused by default and requires the separate reviewed approval object described in the repair guide; a boolean true is invalid. This conservative W1 decision avoids an unaudited opaque route or plaintext capture while their required controls are absent. No HTTP/2 or WebSocket coverage is claimed.
 
 Request/response buffers share the program's `max_response_bytes` cap. Header lines are capped at 8 KiB, aggregate headers at 32 KiB, and request lines at 8 KiB. Request-line/header parsing has a three-second total deadline; request bodies and upstream operations have bounded timeouts. The run's maximum lifetime and request count also apply. At most 16 clients and 64 TLS host contexts are held per listener. Leaf certificates and keys are created in private temporary directories and removed after loading the TLS context; cached contexts live only for the run.
 
@@ -91,11 +93,11 @@ W1 stores no request/response bodies, URL/query text, cookies, Authorization val
 
 Each forwarded request is recorded under the existing global audit chain with tool `intercept`, host, method, SHA256 of the path **without query**, decision, fixed reason, selected IP, run ID and policy revision. The names of injected user-agent/researcher headers are included, never their values. The Runs & schedules view marks these as “Manual interception audit” and shows injected header names. This is an admission audit, not the full W2 request history or proof that a forwarded operation succeeded.
 
-New events use audit format version 2 so method/path-hash/header-name metadata is covered by the hash. Existing version-1 event hashes and independently retained checkpoints remain valid; historical metadata is not invented or rehashed. `audit-verify` checks both formats. The existing limitations of hash chains and independently retained checkpoints still apply.
+W1 format-2 events cover method/path-hash/header-name metadata; shared-send format-3 events also cover source. Earlier event hashes remain verifiable. Existing version-1 event hashes and independently retained checkpoints remain valid; historical metadata is not invented or rehashed. `audit-verify` checks both formats. The existing limitations of hash chains and independently retained checkpoints still apply.
 
 ## Plain-language threat model
 
-Trusting this CA gives anyone holding its private key the technical ability to impersonate TLS websites to clients that trust it. Program scope is enforced by Expertool's code, **not a cryptographic restriction on the root CA**. A compromised local account, stolen key, malicious dependency or modified application could abuse that trust. The root key is unencrypted and protected by owner-only file permissions (0600) inside a private directory (0700); this does not protect it from malware running as your account. Keep trust confined to the test browser profile, use only authorized programs, stop the listener when finished, and remove trust when retiring the CA.
+Trusting this CA gives its key holder impersonation capability within name constraints on clients that enforce them. Per-program critical NameConstraints now add cryptographic defense in depth; they do not express methods, ports or paths, and browser-specific trust-anchor behavior was not verified here. Program scope checks in Expertool remain the primary control. A compromised local account, stolen key, malicious dependency or modified application could abuse that trust. The root key is unencrypted by default (optional environment-passphrase encryption is described in the repair guide) and protected by owner-only file permissions (0600) inside a private directory (0700); this does not protect it from malware running as your account. Keep trust confined to the test browser profile, use only authorized programs, stop the listener when finished, and remove trust when retiring the CA.
 
 The relevant boundaries are browser input → local authenticated listener → current scope/method guard → pinned, verified target connection → volatile response buffer. Untrusted target responses do not grant new scope or enable methods. W1 is not a hardened multi-user network service, certificate pinning bypass, OS-wide traffic capture, or encrypted raw-evidence vault. No CA was trusted or installed during implementation; tests use temporary CAs and owned loopback targets only.
 

@@ -53,7 +53,7 @@ def policy_for(*ports):
 
 @unittest.skipUnless(shutil.which('openssl'),'local certificate fixtures require existing OpenSSL')
 class CATests(unittest.TestCase):
-    def setUp(self):self.temp=tempfile.TemporaryDirectory();self.ca=LocalCA(Path(self.temp.name)/'ca');self.ca.create()
+    def setUp(self):self.temp=tempfile.TemporaryDirectory();self.ca=LocalCA(Path(self.temp.name)/'ca');self.ca.create(program='fixture',policy=policy_for(443))
     def tearDown(self):self.temp.cleanup()
     def test_destroy_refuses_unknown_files_before_deleting_key(self):
         (self.ca.directory/'public-copy.pem').write_text('public copy')
@@ -66,7 +66,7 @@ class CATests(unittest.TestCase):
         self.assertIn(b'BEGIN CERTIFICATE',destination.read_bytes());self.assertNotIn(b'PRIVATE KEY',destination.read_bytes())
         original=self.ca.key.read_bytes()
         with self.assertRaises(FileExistsError):self.ca.export_public(self.ca.key)
-        with self.assertRaises(CAError):self.ca.create()
+        with self.assertRaises(CAError):self.ca.create(program='fixture',policy=policy_for(443))
         self.assertEqual(self.ca.key.read_bytes(),original)
     def test_unsafe_permissions_symlinks_and_active_destroy_refused(self):
         self.ca.key.chmod(0o644)
@@ -88,8 +88,8 @@ class InterceptionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.temp=tempfile.TemporaryDirectory();cls.root=Path(cls.temp.name)
-        cls.ca=LocalCA(cls.root/'browser-ca');cls.ca.create()
-        cls.upstream_ca=LocalCA(cls.root/'upstream-ca');cls.upstream_ca.create()
+        cls.ca=LocalCA(cls.root/'browser-ca');cls.ca.create(program='manual',policy=policy_for(443))
+        cls.upstream_ca=LocalCA(cls.root/'upstream-ca');cls.upstream_ca.create(program='manual',policy=policy_for(443))
         cls.http=ThreadingHTTPServer(('127.0.0.1',0),ManualTarget)
         cls.https=ThreadingHTTPServer(('127.0.0.1',0),ManualTarget)
         policy=policy_for(cls.https.server_port)
@@ -165,7 +165,9 @@ class InterceptionTests(unittest.TestCase):
     def test_scope_and_exclusions_never_sign_outside_host(self):
         for excluded in [False,True]:
             self.policy['exclude']=['127.0.0.1'] if excluded else [];self.update()
-            with self.server() as server,patch.object(self.ca,'server_context') as sign:
+            case_ca=LocalCA(self.root/('exclusion-ca-'+str(excluded)))
+            case_ca.create(program='manual',policy=self.policy)
+            with InterceptServer(self.w,'manual',self.run,case_ca) as server,patch.object(case_ca,'server_context') as sign:
                 connection=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=3)
                 target='127.0.0.1' if excluded else 'outside.invalid'
                 authority=f'{target}:{self.https.server_port}'
@@ -241,11 +243,11 @@ class InterceptionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory);db=root/'cli.db';ca=root/'ca';public=root/'public.pem'
             base=[sys.executable,'-m','expertool','--db',str(db)]
-            created=subprocess.run(base+['ca-create','--ca-dir',str(ca)],capture_output=True,text=True,check=True)
-            self.assertFalse(json.loads(created.stdout)['trust_installed'])
-            exported=subprocess.run(base+['ca-export-public','--ca-dir',str(ca),'--out',str(public)],capture_output=True,text=True,check=True)
-            self.assertNotIn('PRIVATE KEY',public.read_text())
             w=Workspace(db);w.add_program('cli',self.policy);w.close()
+            created=subprocess.run(base+['ca-create','--program','cli','--ca-dir',str(ca)],capture_output=True,text=True,check=True)
+            self.assertFalse(json.loads(created.stdout)['trust_installed'])
+            exported=subprocess.run(base+['ca-export-public','--program','cli','--ca-dir',str(ca),'--out',str(public)],capture_output=True,text=True,check=True)
+            self.assertNotIn('PRIVATE KEY',public.read_text())
             token='fixture-cli-interception-token-unique-2026'
             environment={**os.environ,'EXPERTOOL_INTERCEPT_TOKEN':token}
             process=subprocess.Popen(base+['intercept-start','--program','cli','--ca-dir',str(ca)],env=environment,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
@@ -265,8 +267,8 @@ class InterceptionTests(unittest.TestCase):
                 self.assertEqual(w.snapshot('cli')['runs'][0]['status'],'completed')
                 self.assertNotIn(token,'\n'.join(w.db.iterdump()))
             finally:w.close()
-            destroyed=subprocess.run(base+['ca-destroy','--ca-dir',str(ca)],capture_output=True,text=True,check=True)
-            self.assertTrue(json.loads(destroyed.stdout)['destroyed']);self.assertFalse(ca.exists())
+            destroyed=subprocess.run(base+['ca-destroy','--program','cli','--ca-dir',str(ca)],capture_output=True,text=True,check=True)
+            self.assertTrue(json.loads(destroyed.stdout)['destroyed']);self.assertFalse(LocalCA.for_program(ca,'cli').directory.exists())
     def test_stopped_listener_invalidates_existing_permit(self):
         with self.server() as server:
             permit=server.guard.authorize(f'http://127.0.0.1:{self.http.server_port}/')

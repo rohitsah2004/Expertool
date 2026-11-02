@@ -68,9 +68,9 @@ class PolicySource:
             raise EgressDenied('Program removed')
         return json.loads(row['policy'])
 
-    def audit(self, *, host, port, decision, reason, tool, run_id, version=None, ip=None, transport='http'):
+    def audit(self, *, host, port, decision, reason, tool, run_id, version=None, ip=None, transport='http',**details):
         if self.workspace is not None:
-            self.workspace.audit_egress(self.program,host,port,decision,reason,tool,run_id,version,ip,transport)
+            self.workspace.audit_egress(self.program,host,port,decision,reason,tool,run_id,version,ip,transport,**details)
 
 
 class EgressGuard:

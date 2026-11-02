@@ -95,11 +95,11 @@ class Workspace:
         finally:
             connection.close()
 
-    def audit_egress(self,program,host,port,decision,reason,tool,run_id,version,ip,transport,method=None,path_hash=None,injected_headers=()):
+    def audit_egress(self,program,host,port,decision,reason,tool,run_id,version,ip,transport,method=None,path_hash=None,injected_headers=(),source=None):
         values=sanitize([program,host,port,decision,reason,tool,run_id,version,ip,transport,now()])
         from .audit import append
         with self.reader() as connection:
-            append(connection,values,sanitize({"method":method,"path_hash":path_hash,"injected_headers":list(injected_headers)}))
+            append(connection,values,sanitize({"method":method,"path_hash":path_hash,"injected_headers":list(injected_headers),"source":source}))
 
     def verify_audit(self,checkpoint=None):
         from .audit import verify

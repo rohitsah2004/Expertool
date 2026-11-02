@@ -135,3 +135,7 @@ YAML templates can now be admitted offline with `template-import`; see [the impo
 **Phase A hardening:** [tool provenance, freshness, DNS/proxy review and audit-chain verification](docs/phase-a-hardening.md). Use `tools --verify` and `audit-verify`; all traffic controls remain mandatory.
 
 **Manual workbench W1:** [opt-in HTTP/1.1 interception, CA lifecycle and browser trust/removal](docs/workbench-w1.md). Separate listener; manual methods require explicit program approval. W2 request history and Repeater are not yet implemented.
+
+**Redaction R1:** [normalized secret keys, structured JSON/form/URL handling, bounded credential recall and benchmark](docs/redaction-r1.md). W2/W3 remain unimplemented.
+
+**Repairs R2–R4:** [shared guarded sends, approved blind passthrough and per-program constrained CA creation/rotation](docs/repairs-r2-r5.md). CA commands now require `--program`.

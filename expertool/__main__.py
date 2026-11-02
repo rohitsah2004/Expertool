@@ -41,8 +41,10 @@ def main():
     parser.add_argument('--catalog', default=str(ROOT / 'data/techniques.json'))
     parser.add_argument('--db', default='expertool.db', help='Local SQLite workspace')
     sub = parser.add_subparsers(dest='command', required=True)
-    for name in ('ca-create','ca-export-public','ca-destroy'):
+    for name in ('ca-create','ca-rotate','ca-export-public','ca-destroy'):
         ca_parser=sub.add_parser(name,help='Explicit local interception CA lifecycle (no trust installation)')
+        ca_parser.add_argument('--program',required=True)
+        if name in {'ca-create','ca-rotate'}:ca_parser.add_argument('--passphrase-env')
         ca_parser.add_argument('--ca-dir',default=str(Path.home()/'.local/share/expertool/interception-ca'))
         if name=='ca-export-public':ca_parser.add_argument('--out',required=True)
     intercept=sub.add_parser('intercept-start',help='Start the separate opt-in manual interception listener')
@@ -148,10 +150,16 @@ def main():
     args = parser.parse_args()
     try:
         entries = load_catalog(args.catalog) if args.command in {'catalog', 'validate', 'plan'} else []
-        if args.command in {'ca-create','ca-export-public','ca-destroy'}:
+        if args.command in {'ca-create','ca-rotate','ca-export-public','ca-destroy'}:
             from .local_ca import LocalCA
-            ca=LocalCA(args.ca_dir)
-            result=ca.create() if args.command=='ca-create' else (ca.export_public(args.out) if args.command=='ca-export-public' else ca.destroy())
+            from .workspace import Workspace
+            ca=LocalCA.for_program(args.ca_dir,args.program)
+            if args.command in {'ca-create','ca-rotate'}:
+                workspace=Workspace(args.db)
+                try:policy=workspace.policy(args.program)
+                finally:workspace.close()
+                result=ca.create(program=args.program,policy=policy,passphrase_env=args.passphrase_env) if args.command=='ca-create' else ca.rotate(program=args.program,policy=policy,passphrase_env=args.passphrase_env)
+            else:result=ca.export_public(args.out) if args.command=='ca-export-public' else ca.destroy()
             print(json.dumps(result,indent=2))
         elif args.command == 'intercept-stop':
             import base64,http.client
@@ -201,9 +209,9 @@ def main():
                     run_id=workspace.start_run(args.program,'intercept',{'listener':'manual','port':args.port,'raw_capture':False})
                     status='failed';result={}
                     try:
-                        with InterceptServer(workspace,args.program,run_id,LocalCA(args.ca_dir),args.port,token) as server:
+                        with InterceptServer(workspace,args.program,run_id,LocalCA.for_program(args.ca_dir,args.program),args.port,token) as server:
                             print(json.dumps({'listener':'manual-interception','run_id':run_id,'proxy':'http://127.0.0.1:'+str(server.server_port),
-                              'username':'expertool','password_environment':args.token_env,'http':'HTTP/1.1 only','raw_capture':False}),flush=True)
+                              'username':'expertool','password_environment':args.token_env,'http':'HTTP/1.1 only','raw_capture':False,'warnings':server.warnings}),flush=True)
                             try:
                                 while not server.stopping.wait(.25):pass
                             except KeyboardInterrupt:server.stop()

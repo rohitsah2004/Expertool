@@ -13,7 +13,7 @@ def interception_settings(policy):
         raise ValueError('Invalid interception settings')
     if raw.get('enabled') is not True or 'manual' not in policy.get('allowed_modes',[]):
         raise ValueError('Manual interception requires explicit opt-in and manual mode')
-    for feature in ('passthrough','websocket_capture','raw_capture'):
+    for feature in ('websocket_capture','raw_capture'):
         if raw.get(feature,False) is not False:raise ValueError('Unsupported interception feature: '+feature)
     state=raw.get('state_changing',{'enabled':False})
     if not isinstance(state,dict) or set(state)-{'enabled','approved_by','approved_at'} or type(state.get('enabled')) is not bool:
@@ -25,7 +25,9 @@ def interception_settings(policy):
             date=datetime.fromisoformat(state['approved_at'].replace('Z','+00:00'))
             if date.tzinfo is None:raise ValueError('Timezone required')
         except (KeyError,AttributeError,TypeError,ValueError):raise ValueError('State-changing approval requires a timezone-aware approved_at') from None
-    return {'state_changing':state['enabled']}
+    from .passthrough import controls
+    passthrough=controls(policy)
+    return {'state_changing':state['enabled'],'passthrough':passthrough}
 
 def manual_settings(policy):
     interception_settings(policy)
